@@ -17,53 +17,97 @@ class Producto {
 // *************************************************************//
 const productos = [
     { id: 0, categoria: 'Mouse', nombre: 'Mouse HyperX', precio: 4000, stock: 10, img: 'MOUSE_HYPERX.jpg' },
-    { id: 1, categoria: 'Mouse', nombre: 'Mouse Logitech', precio: 7500, stock: 10, img:'MOUSE_LOGITECH.jpg' },
-    { id: 2, categoria: 'Mouse', nombre: 'Mouse Redragon', precio: 5000, stock: 10, img:'MOUSE_REDRAGON.jpg' },
-    { id: 3, categoria: 'Mouse Pad', nombre: 'Mouse Pad HyperX', precio: 1200, stock: 20, img:'MOUSE_PAD_HYPERX.jpg' },
-    { id: 4, categoria: 'Mouse Pad', nombre: 'Mouse Pad Logitech', precio: 2500, stock: 20, img:'MOUSE_PAD_LOGITECH.jpg' },
-    { id: 5, categoria: 'Mouse Pad', nombre: 'Mouse Pad Redragon', precio: 2250, stock: 20, img:'MOUSE_PAD_REDRAGON.jpg' },
-    { id: 6, categoria: 'Teclado', nombre: 'Teclado HyperX', precio: 4800, stock: 10, img:'TECLADO_HYPERX.jpg' },
-    { id: 7, categoria: 'Teclado', nombre: 'Teclado Logitech', precio: 6000, stock: 10, img:'TECLADO_LOGITECH.jpg' },
-    { id: 8, categoria: 'Teclado', nombre: 'Teclado Redragon', precio: 8000, stock: 10, img:'TECLADO_REDRAGON.jpg' },
-    { id: 9, categoria: 'Procesador', nombre: 'Procesador AMD RYZEN 5 3600', precio: 32150, stock: 10, img:'AMD_RYZEN5.jpg' },
-    { id: 10, categoria: 'Procesador', nombre: 'Procesador Intel Core i3', precio: 18000, stock: 10, img:'INTEL_CORE_I3.jpg' },
-    { id: 11, categoria: 'Placa Video', nombre: 'Placa de Video PNY GeForce GTX 1650 4GB GDDR6', precio: 54500, stock: 10, img:'PLACA_GTX1650.jpg' },
-    { id: 12, categoria: 'Placa Video', nombre: 'Placa de Video XFX Radeon RX 6500 XT 4GB', precio: 62000, stock: 10, img:'PLACA_RADEON.jpg' },
-    { id: 13, categoria: 'ram', nombre: 'Memoria Team DDR4 8GB 2666MHz', precio: 6000, stock: 10, img:'RAM_TEAM_8GB.jpg' },
-    { id: 14, categoria: 'ram', nombre: 'Memoria Team DDR4 16GB 2666MHz', precio: 9820, stock: 10, img:'RAM_TEAM_16GB.jpg' },
-    { id: 15, categoria: 'monitor', nombre: 'Monitor Gamer ViewSonic 24" VX2458-MHD 144Hz', precio: 43620, stock: 10, img:'MONITOR_VIEWSONIC24.jpg' },
-    { id: 16, categoria: 'monitor', nombre: 'Monitor Gamer ViewSonic 27" XG2705 144Hz', precio: 67960, stock: 10, img:'MONITOR_VIEWSONIC27.jpg' },
+    { id: 1, categoria: 'Mouse', nombre: 'Mouse Logitech', precio: 7500, stock: 10, img: 'MOUSE_LOGITECH.jpg' },
+    { id: 2, categoria: 'Mouse', nombre: 'Mouse Redragon', precio: 5000, stock: 10, img: 'MOUSE_REDRAGON.jpg' },
+    { id: 3, categoria: 'Mouse Pad', nombre: 'Mouse Pad HyperX', precio: 1200, stock: 20, img: 'MOUSE_PAD_HYPERX.jpg' },
+    { id: 4, categoria: 'Mouse Pad', nombre: 'Mouse Pad Logitech', precio: 2500, stock: 20, img: 'MOUSE_PAD_LOGITECH.jpg' },
+    { id: 5, categoria: 'Mouse Pad', nombre: 'Mouse Pad Redragon', precio: 2250, stock: 20, img: 'MOUSE_PAD_REDRAGON.jpg' },
+    { id: 6, categoria: 'Teclado', nombre: 'Teclado HyperX', precio: 4800, stock: 10, img: 'TECLADO_HYPERX.jpg' },
+    { id: 7, categoria: 'Teclado', nombre: 'Teclado Logitech', precio: 6000, stock: 10, img: 'TECLADO_LOGITECH.jpg' },
+    { id: 8, categoria: 'Teclado', nombre: 'Teclado Redragon', precio: 8000, stock: 10, img: 'TECLADO_REDRAGON.jpg' },
+    { id: 9, categoria: 'Procesador', nombre: 'Procesador AMD RYZEN 5 3600', precio: 32150, stock: 10, img: 'AMD_RYZEN5.jpg' },
+    { id: 10, categoria: 'Procesador', nombre: 'Procesador Intel Core i3', precio: 18000, stock: 10, img: 'INTEL_CORE_I3.jpg' },
+    { id: 11, categoria: 'Placa Video', nombre: 'Placa de Video PNY GeForce GTX 1650 4GB GDDR6', precio: 54500, stock: 10, img: 'PLACA_GTX1650.jpg' },
+    { id: 12, categoria: 'Placa Video', nombre: 'Placa de Video XFX Radeon RX 6500 XT 4GB', precio: 62000, stock: 10, img: 'PLACA_RADEON.jpg' },
+    { id: 13, categoria: 'ram', nombre: 'Memoria Team DDR4 8GB 2666MHz', precio: 6000, stock: 10, img: 'RAM_TEAM_8GB.jpg' },
+    { id: 14, categoria: 'ram', nombre: 'Memoria Team DDR4 16GB 2666MHz', precio: 9820, stock: 10, img: 'RAM_TEAM_16GB.jpg' },
+    { id: 15, categoria: 'monitor', nombre: 'Monitor Gamer ViewSonic 24" VX2458-MHD 144Hz', precio: 43620, stock: 10, img: 'MONITOR_VIEWSONIC24.jpg' },
+    { id: 16, categoria: 'monitor', nombre: 'Monitor Gamer ViewSonic 27" XG2705 144Hz', precio: 67960, stock: 10, img: 'MONITOR_VIEWSONIC27.jpg' },
 ]
-
 
 
 // **************************************************************//
 // *********************     Functions     **********************//
 // **************************************************************//
-const validarStock = (id, cantidadPedida) => {
-    let CatidadDeStock = productos[id].stock - cantidadPedida
-    if (CatidadDeStock > 0) {
-        console.log('stock:' +  CatidadDeStock)
+
+localStorage.setItem('productos', JSON.stringify(productos))
+
+const agregar = (id) => {
+    let productoSeleccionado = tuCarrito.find(e => e.id == id);
+    if (!productoSeleccionado) {
+        let nProd = productos.find(e => e.id == id)
+        let nNombre = nProd.nombre;
+        let nPrecio = nProd.precio;
+        let nImg = nProd.img;
+        tuCarrito.push({ id: id, cant: 1, nombre: nNombre, precio: nPrecio, img: nImg })
+        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
+        const CantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = 1
+        localStorage.setItem('Carrito', JSON.stringify(tuCarrito))
+    } else {
+        productoSeleccionado.cant = productoSeleccionado.cant + 1;
+        validarStock(id, productoSeleccionado.cant)
     }
-    else if (CatidadDeStock <= 0) {
-        mostrarCards(productos, productos[id].stock)
-        document.getElementById('containerCart').innerHTML = `<button id="botonCarro"
-        onclick="agregar(${productos.id})"
-        class="btn btn-outline-dark mt-auto" href="#" disabled>
-        Add to cart
-        </button>`
+    console.log(tuCarrito)
+}
+
+
+const botonDelCarrito = (id) => {
+    document.getElementById(`stock${id}`).innerHTML = "Out Stock"
+    const buttonProductos = document.getElementById(`btnCart${id}`).innerHTML = `<button
+    onclick= agregar(${id})
+    class="btn btn-outline-dark mt-auto" disabled>
+    Add to cart
+    </button> 
+        <a style="display: contents; margin: auto"
+        href="verProducto.html" target="_BLANK">
+        <button class="btn btn-outline-dark mt-auto">
+        Ver Producto
+        </button></a>`
+}
+
+
+const validarStock = (id, cantidadPedida) => {
+    localStorage.setItem('Carrito', JSON.stringify(tuCarrito))
+    let catidadDeStock = productos[id].stock - cantidadPedida
+    if (catidadDeStock > 0) {
+        console.log('stock:' + catidadDeStock)
+        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
+        const CantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = cantidadPedida
+    }
+    else if (catidadDeStock <= 0) {
+            botonDelCarrito(id)
+            const CantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = cantidadPedida
         console.log('no tenemos suficiente stock')
     }
 }
 
 
-const mostrarCards = (productos, stock) => {
-    let acumuladorCards = ``
-    productos.forEach( element =>{
-        acumuladorCards +=`<div class="col mb-5">
+const verProducto = (id) => {
+    productoQueQuiereVer = productos.find(element => element.id === id);
+    localStorage.setItem("productoAVer", JSON.stringify(productoQueQuiereVer));
+    console.log(productoQueQuiereVer)
+}
+
+
+function mostrarCards(productos) {
+    const divProductos = document.getElementById("list-cards")
+    productos.forEach(element => {
+        let card = document.createElement('div')
+        card.className = "card"
+        card.innerHTML = `<div class="col mb-5">
         <div class="card h-100">
             <!-- Sale badge-->
-            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem" ${(stock <= 0) ? 'Out Stock' : 'En Stock'}>
+            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem" id=stock${element.id}>
             En Stock
             </div>
             <!-- Product image-->
@@ -79,68 +123,28 @@ const mostrarCards = (productos, stock) => {
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                <div class="text-center" id="containerCart">
-                <button id="botonCarro"
-                onclick= "agregar(${element.id})"
+                <div class="text-center" id=btnCart${element.id}>
+                <button 
+                onclick= agregar(${element.id})
                 class="btn btn-outline-dark mt-auto" href="#">
                 Add to cart
-                </button>
+                </button> 
+                        <a style="display: contents; margin: auto"
+                        href="verProducto.html" target="_BLANK">
+                        <button class="btn btn-outline-dark mt-auto"
+                        onclick= verProducto(${element.id})>
+                        Ver Producto
+                        </button></a>
                 </div>
             </div>
         </div>
     </div>
     </div>`
-        mostrarCardsEnHTML(acumuladorCards);
+        divProductos.appendChild(card)
     })
-    }
-
-    const mostrarCardsEnHTML = (cards) => {
-        document.getElementById("list-cards").innerHTML = cards;
-    }
-    const listaDeCards = document.getElementById("list-cards")
-    mostrarCards(productos)
-
-    const agregar = (id) => {
-        let productoSeleccionado = tuCarrito.find( e => e.id == id );
-        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
-        if (!productoSeleccionado) {
-            let nProd = productos.find( e => e.id == id )
-            let nNombre = nProd.nombre;
-            let nPrecio = nProd.precio;
-            let nImg = nProd.img;
-            tuCarrito.push({id: id, cant: 1, nombre: nNombre, precio: nPrecio, img: nImg})
-        } else {
-            productoSeleccionado.cant = productoSeleccionado.cant + 1;
-            validarStock(id, productoSeleccionado.cant)
-            }
-            const CantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = tuCarrito.length 
-            console.log(tuCarrito)
-        }
-// *************************************************************//
-// *********************    Variables    ***********************//
-// *************************************************************//
-const tuCarrito = [];
-let total = 0;
-
-
-
-
-
-
-
-function buscarProducto() {
-    const productosBuscados = document.getElementById("buscador").value.toUpperCase().trim();
-    console.log(productosBuscados)
-    const productosEncontrados = productos.filter(( productos ) => {
-        return productos.nombre.toUpperCase().match(productosBuscados);
-    })
-    console.log(productosEncontrados)
-    mostrarCards(productosEncontrados)
 }
 
-
-
-const eliminar =(nombre) => {
+const eliminar = (nombre) => {
     let index = tuCarrito[nombre]
     if (index != -1) {
         console.log(`sacaste ${tuCarrito[nombre].nombre} de $${tuCarrito[nombre].precio}`)
@@ -150,6 +154,25 @@ const eliminar =(nombre) => {
     total = total - resultado
     console.log(`tu nuevo total es de $${total}`)
 }
+
+
+mostrarCards(productos)
+
+
+
+
+
+
+// *************************************************************//
+// *********************    Variables    ***********************//
+// *************************************************************//
+
+let total = 0;
+
+
+
+
+
 
 
 
