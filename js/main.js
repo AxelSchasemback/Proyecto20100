@@ -42,60 +42,26 @@ const productos = [
 
 localStorage.setItem('productos', JSON.stringify(productos))
 
-const agregar = (id) => {
-    let productoSeleccionado = tuCarrito.find(e => e.id == id);
-    if (!productoSeleccionado) {
-        let nProd = productos.find(e => e.id == id)
-        let nNombre = nProd.nombre;
-        let nPrecio = nProd.precio;
-        let nImg = nProd.img;
-        tuCarrito.push({ id: id, cant: 1, nombre: nNombre, precio: nPrecio, img: nImg })
-        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
-        const CantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = 1
-        localStorage.setItem('Carrito', JSON.stringify(tuCarrito))
-    } else {
-        productoSeleccionado.cant = productoSeleccionado.cant + 1;
-        validarStock(id, productoSeleccionado.cant)
-    }
-    console.log(tuCarrito)
-}
 
-
-const botonDelCarrito = (id) => {
-    document.getElementById(`stock${id}`).innerHTML = "Out Stock"
-    const buttonProductos = document.getElementById(`btnCart${id}`).innerHTML = `<button
-    onclick= agregar(${id})
-    class="btn btn-outline-dark mt-auto" disabled>
-    Add to cart
-    </button> 
-        <a style="display: contents; margin: auto"
-        href="verProducto.html" target="_BLANK">
-        <button class="btn btn-outline-dark mt-auto">
-        Ver Producto
-        </button></a>`
-}
-
-
-const validarStock = (id, cantidadPedida) => {
-    localStorage.setItem('Carrito', JSON.stringify(tuCarrito))
-    let catidadDeStock = productos[id].stock - cantidadPedida
-    if (catidadDeStock > 0) {
-        console.log('stock:' + catidadDeStock)
-        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
-        const CantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = cantidadPedida
-    }
-    else if (catidadDeStock <= 0) {
-            botonDelCarrito(id)
-            const CantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = cantidadPedida
-        console.log('no tenemos suficiente stock')
-    }
-}
 
 
 const verProducto = (id) => {
     productoQueQuiereVer = productos.find(element => element.id === id);
     localStorage.setItem("productoAVer", JSON.stringify(productoQueQuiereVer));
     console.log(productoQueQuiereVer)
+}
+
+
+function buscarProducto() {
+    
+    const productosBuscados = document.getElementById("buscador").value.toUpperCase().trim();
+    console.log(productosBuscados)
+    const productosEncontrados = productos.filter((productos) => {
+        
+        return productos.nombre.toUpperCase().match(productosBuscados);
+    })
+    console.log(productosEncontrados)
+    mostrarCards(productosEncontrados)
 }
 
 
@@ -129,14 +95,14 @@ function mostrarCards(productos) {
                 class="btn btn-outline-dark mt-auto" href="#">
                 Add to cart
                 </button> 
-                        <a style="display: contents; margin: auto"
+                </div>
+            </div>
+            <a style="display: contents; margin: auto"
                         href="verProducto.html" target="_BLANK">
                         <button class="btn btn-outline-dark mt-auto"
                         onclick= verProducto(${element.id})>
                         Ver Producto
                         </button></a>
-                </div>
-            </div>
         </div>
     </div>
     </div>`
