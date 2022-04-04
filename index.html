@@ -14,6 +14,7 @@
         <link href="css/styles.css" rel="stylesheet" />
         <script src="js/logicProduct.js" defer></script>
         <script src="js/main.js" defer></script>
+        <script src="js/storage.js" defer></script>
     </head>
     <body>
         <!-- Navigation-->
@@ -23,7 +24,7 @@
                 <!-- Buscador de Prodcuto -->
                 <div>
                 <input type="text" id="buscador">
-                <button href="index.html" onclick=buscarProducto()> Buscar </button>
+                <button onclick=buscarProducto()> Buscar </button>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -40,13 +41,13 @@
                             </ul>
                         </li>
                     </ul>
-                    <form class="d-flex">
-                        <button class="btn btn-outline-dark" type="submit">
+                    <a type="button" href="carrito.html" class="d-flex">
+                        <button class="btn btn-outline-dark">
                             <i class="bi-cart-fill me-1"></i>
-                            Cart
+                            <b>Cart</b>
                             <span id="cantidadCarrito" class="badge bg-dark text-white ms-1 rounded-pill">0</span>
                         </button>
-                    </form>
+                    </a>
                 </div>
             </div>
         </nav>

@@ -1,50 +1,3 @@
-// *************************************************************//
-// *********************    constructor    *********************//
-// *************************************************************//
-class Producto {
-    constructor(id, categoria, nombre, precio, stock) {
-        this.id = id;
-        this.categoria = categoria;
-        this.nombre = nombre;
-        this.precio = parseInt(precio);
-        this.stock = parseInt(stock);
-        this.img = img;
-    }
-}
-
-// *************************************************************//
-// **********************    Producto    ***********************//
-// *************************************************************//
-const productos = [
-    { id: 0, categoria: 'Mouse', nombre: 'Mouse HyperX', precio: 4000, stock: 10, img: 'MOUSE_HYPERX.jpg' },
-    { id: 1, categoria: 'Mouse', nombre: 'Mouse Logitech', precio: 7500, stock: 10, img: 'MOUSE_LOGITECH.jpg' },
-    { id: 2, categoria: 'Mouse', nombre: 'Mouse Redragon', precio: 5000, stock: 10, img: 'MOUSE_REDRAGON.jpg' },
-    { id: 3, categoria: 'Mouse Pad', nombre: 'Mouse Pad HyperX', precio: 1200, stock: 20, img: 'MOUSE_PAD_HYPERX.jpg' },
-    { id: 4, categoria: 'Mouse Pad', nombre: 'Mouse Pad Logitech', precio: 2500, stock: 20, img: 'MOUSE_PAD_LOGITECH.jpg' },
-    { id: 5, categoria: 'Mouse Pad', nombre: 'Mouse Pad Redragon', precio: 2250, stock: 20, img: 'MOUSE_PAD_REDRAGON.jpg' },
-    { id: 6, categoria: 'Teclado', nombre: 'Teclado HyperX', precio: 4800, stock: 10, img: 'TECLADO_HYPERX.jpg' },
-    { id: 7, categoria: 'Teclado', nombre: 'Teclado Logitech', precio: 6000, stock: 10, img: 'TECLADO_LOGITECH.jpg' },
-    { id: 8, categoria: 'Teclado', nombre: 'Teclado Redragon', precio: 8000, stock: 10, img: 'TECLADO_REDRAGON.jpg' },
-    { id: 9, categoria: 'Procesador', nombre: 'Procesador AMD RYZEN 5 3600', precio: 32150, stock: 10, img: 'AMD_RYZEN5.jpg' },
-    { id: 10, categoria: 'Procesador', nombre: 'Procesador Intel Core i3', precio: 18000, stock: 10, img: 'INTEL_CORE_I3.jpg' },
-    { id: 11, categoria: 'Placa Video', nombre: 'Placa de Video PNY GeForce GTX 1650 4GB GDDR6', precio: 54500, stock: 10, img: 'PLACA_GTX1650.jpg' },
-    { id: 12, categoria: 'Placa Video', nombre: 'Placa de Video XFX Radeon RX 6500 XT 4GB', precio: 62000, stock: 10, img: 'PLACA_RADEON.jpg' },
-    { id: 13, categoria: 'ram', nombre: 'Memoria Team DDR4 8GB 2666MHz', precio: 6000, stock: 10, img: 'RAM_TEAM_8GB.jpg' },
-    { id: 14, categoria: 'ram', nombre: 'Memoria Team DDR4 16GB 2666MHz', precio: 9820, stock: 10, img: 'RAM_TEAM_16GB.jpg' },
-    { id: 15, categoria: 'monitor', nombre: 'Monitor Gamer ViewSonic 24" VX2458-MHD 144Hz', precio: 43620, stock: 10, img: 'MONITOR_VIEWSONIC24.jpg' },
-    { id: 16, categoria: 'monitor', nombre: 'Monitor Gamer ViewSonic 27" XG2705 144Hz', precio: 67960, stock: 10, img: 'MONITOR_VIEWSONIC27.jpg' },
-]
-
-
-// **************************************************************//
-// *********************     Functions     **********************//
-// **************************************************************//
-
-localStorage.setItem('productos', JSON.stringify(productos))
-
-
-
-
 const verProducto = (id) => {
     productoQueQuiereVer = productos.find(element => element.id === id);
     localStorage.setItem("productoAVer", JSON.stringify(productoQueQuiereVer));
@@ -56,9 +9,8 @@ function buscarProducto() {
     
     const productosBuscados = document.getElementById("buscador").value.toUpperCase().trim();
     console.log(productosBuscados)
-    const productosEncontrados = productos.filter((productos) => {
-        
-        return productos.nombre.toUpperCase().match(productosBuscados);
+    const productosEncontrados = productos.filter((producto) => {
+        return producto.nombre.toUpperCase().match(productosBuscados);
     })
     console.log(productosEncontrados)
     mostrarCards(productosEncontrados)
@@ -73,7 +25,8 @@ function mostrarCards(productos) {
         card.innerHTML = `<div class="col mb-5">
         <div class="card h-100">
             <!-- Sale badge-->
-            <div class="badge bg-dark text-white position-absolute" style="top: 0.5rem; right: 0.5rem" id=stock${element.id}>
+            <div id=stock${element.id} class="badge bg-dark text-white position-absolute" 
+            style="top: 0.5rem; right: 0.5rem">
             En Stock
             </div>
             <!-- Product image-->
@@ -110,8 +63,8 @@ function mostrarCards(productos) {
     })
 }
 
-const eliminar = (nombre) => {
-    let index = tuCarrito[nombre]
+const eliminar = (id) => {
+    let index = tuCarrito[id]
     if (index != -1) {
         console.log(`sacaste ${tuCarrito[nombre].nombre} de $${tuCarrito[nombre].precio}`)
         tuCarrito.splice(index, 1)
@@ -376,12 +329,12 @@ let total = 0;
 // class producto {
 //     constructor(nombre, precio, stock) {
 //         this.nombre = nombre;
-//         this.precio = precio;
-//         this.stock = stock;
+//         this.apellito = apellido;
+//         this.domicilio = domicilio;
 //     }
-//     validarStock(cantidadPedida) {
-//         let totalStock = (this.stock - cantidadPedida)
-//         if (totalStock > cantidadPedida) {
+//     formulario(usuario) {
+//         alert(`Paciente: usuario
+//         -Nombre:${usuario.nombre} `)
 //             console.log(`se agrego al carrito: ${this.nombre} por ${this.precio} c/u \n cantidad: ${cantidadPedida}`)
 //         }
 //         else if (totalStock <= cantidadPedida) {
