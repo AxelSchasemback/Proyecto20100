@@ -1,7 +1,6 @@
 const verProducto = (id) => {
     productoQueQuiereVer = productos.find(element => element.id === id);
     localStorage.setItem("productoAVer", JSON.stringify(productoQueQuiereVer));
-    console.log(productoQueQuiereVer)
 }
 
 

@@ -41,28 +41,27 @@ const productos = [
 // **************************************************************//
 
 
-const validarStorageCarrito = () => {
+function validarStorageCarrito() {
     const validarStoragecart = JSON.parse(localStorage.getItem('carrito'))
-        validarStoragecart == null && []
+        return validarStoragecart == null ? [] : JSON.parse(localStorage.getItem('carrito'))
 }
 
 const acumuladorCantidad = () => {
     const cantidadTotal = tuCarrito.reduce((acumuladorCantidad, tuCarrito) => acumuladorCantidad + tuCarrito.cant, 0)
     localStorage.setItem('acumularCantidadTotal', JSON.stringify(cantidadTotal))
+    const cantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = cantidadTotal
 }
 
+const tuCarrito = validarStorageCarrito()
 
-const storageCarrito = validarStorageCarrito()
-const tuCarrito = []
+console.log(tuCarrito)
 
 
 
 const agregar = (id) => {
-    let storageCarrito = JSON.parse(localStorage.getItem('carrito'))
-    let validarStorage = storageCarrito == null && []
-    let productoSeleccionado = tuCarrito.find(e => e.id == id);
+    let productoSeleccionado = tuCarrito.find(producto => producto.id == id);
     if (!productoSeleccionado) {
-        let nProd = productos.find(e => e.id == id)
+        let nProd = productos.find(producto => producto.id == id)
         let nNombre = nProd.nombre;
         let nPrecio = nProd.precio;
         let nImg = nProd.img;
@@ -81,8 +80,6 @@ const agregar = (id) => {
 const validarStock = (id, cantidadPedida) => {
     localStorage.setItem('carrito', JSON.stringify(tuCarrito))
     acumuladorCantidad()
-    const cantidadStorage = JSON.parse(localStorage.getItem('acumularCantidadTotal'))
-    const CantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = cantidadStorage
     let catidadDeStock = productos[id].stock - cantidadPedida
     if (catidadDeStock > 0) {
         localStorage.setItem(`storageEnStock${id}`, JSON.stringify(catidadDeStock))
@@ -95,7 +92,7 @@ const validarStock = (id, cantidadPedida) => {
     }
 }
 
-
+// pendiente, agregar un cantidad = 10 = a botonDelCarrito
 
 const botonDelCarrito = (id) => {
     document.getElementById(`stock${id}`).innerHTML = "Out Stock"
