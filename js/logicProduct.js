@@ -52,9 +52,18 @@ const acumuladorCantidad = () => {
     const cantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = cantidadTotal
 }
 
+// const arregloDisabled = (id) => {
+//     const productoDisabled = tuCarrito.find( disabled => disabled.id == id);
+//     const productoDisableStock = tuCarrito[id].filter( disableStock => disableStock.stock == disableStock.cant )
+//     productoDisableStock 
+// }
+
+
 const tuCarrito = validarStorageCarrito()
 
 console.log(tuCarrito)
+
+
 
 
 
@@ -71,9 +80,22 @@ const agregar = (id) => {
         productoSeleccionado.cant = productoSeleccionado.cant + 1;
         validarStock(id, productoSeleccionado.cant)
     }
+    Toastify({
+        text: `Agregaste ${productos[id].nombre}`,
+        duration: 2000,
+        destination: "carrito.html",
+        newWindow: true,
+        close: true,
+        gravity: "bottom", // `top` or `bottom`
+        position: "right", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+        background: "linear-gradient(to right, #808080, #000000)",
+        },
+        onClick: function(){} // Callback after click
+    }).showToast();
     console.log(tuCarrito)
 }
-
 
 
 
@@ -90,7 +112,10 @@ const validarStock = (id, cantidadPedida) => {
         botonDelCarrito(id)
         console.log('no tenemos suficiente stock')
     }
+    
 }
+
+
 
 // pendiente, agregar un cantidad = 10 = a botonDelCarrito
 
@@ -102,3 +127,7 @@ const botonDelCarrito = (id) => {
     Add to cart
     </button> `
 }
+
+
+
+

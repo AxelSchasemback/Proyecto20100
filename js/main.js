@@ -62,6 +62,9 @@ function mostrarCards(productos) {
     })
 }
 
+
+
+
 const eliminar = (id) => {
     let index = tuCarrito[id]
     if (index != -1) {
