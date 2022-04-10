@@ -16,6 +16,10 @@ function buscarProducto() {
 }
 
 
+
+
+
+
 function mostrarCards(productos) {
     const divProductos = document.getElementById("list-cards")
     productos.forEach(element => {
@@ -62,6 +66,8 @@ function mostrarCards(productos) {
     })
 }
 
+productosFetch()
+
 
 
 
@@ -77,7 +83,7 @@ const eliminar = (id) => {
 }
 
 
-mostrarCards(productos)
+// mostrarCards(data)
 
 
 
