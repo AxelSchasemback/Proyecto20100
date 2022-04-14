@@ -15,6 +15,11 @@ function buscarProducto() {
     mostrarCards(productosEncontrados)
 }
 
+fetch('data.json')
+.then( (res) => res.json())
+.then( (data) => {
+    mostrarCards(data.productos)
+})
 
 
 
@@ -66,7 +71,9 @@ function mostrarCards(productos) {
     })
 }
 
-productosFetch()
+
+
+mostrarCards(productos)
 
 
 
