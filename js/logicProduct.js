@@ -31,7 +31,37 @@ fetch('data.json')
 console.log(tuCarrito)
 
 
+const botonDelCarrito = (id) => {
+    console.log(id)
+    const bottonOutStock = document.getElementById(`stock${id}`).innerHTML = "Out Stock"
+    const buttonCompraDisabled = document.getElementById(`btnCart${id}`).innerHTML = `<button
+    onclick= agregar()
+    class="btn btn-outline-dark mt-auto" disabled>
+    Add to cart
+    </button> `
+}
+
+botonDelCarrito(10)
+
+const validarStock = (id, cantidadPedida) => {
+    console.log(id)
+    localStorage.setItem('carrito', JSON.stringify(tuCarrito))
+    acumuladorCantidad()
+    let catidadDeStock = productos[id].stock - cantidadPedida
+    if (catidadDeStock > 0) {
+        localStorage.setItem(`storageEnStock${id}`, JSON.stringify(catidadDeStock))
+        console.log('stock:' + catidadDeStock)
+        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
+    }
+    else if (catidadDeStock <= 0) {
+        botonDelCarrito(id)
+        console.log('no tenemos suficiente stock')
+    }
+}
+
+
 const agregar = (id) => {
+    console.log(id)
     let productoSeleccionado = tuCarrito.find(producto => producto.id == id);
     if (!productoSeleccionado) {
         let nProd = productos.find(producto => producto.id == id)
@@ -61,49 +91,11 @@ const agregar = (id) => {
     console.log(tuCarrito)
 }
 
-const validarStock = (id, cantidadPedida) => {
-    localStorage.setItem('carrito', JSON.stringify(tuCarrito))
-    acumuladorCantidad()
-    let catidadDeStock = productos[id].stock - cantidadPedida
-    if (catidadDeStock > 0) {
-        localStorage.setItem(`storageEnStock${id}`, JSON.stringify(catidadDeStock))
-        console.log('stock:' + catidadDeStock)
-        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
-    }
-    else if (catidadDeStock <= 0) {
-        botonDelCarrito(id)
-        console.log('no tenemos suficiente stock')
-    }
-}
-
-const botonDelCarrito = (id) => {
-    const bottonOutStock = document.getElementById(`stock${id}`).innerHTML = "Out Stock"
-    const buttonCompraDisabled = document.getElementById(`btnCart${id}`).innerHTML = `<button
-    onclick= agregar(${id})
-    class="btn btn-outline-dark mt-auto" disabled>
-    Add to cart
-    </button> `
-}
-// function botonDisabled (id) {
-//     const recorrerCantidad = tuCarrito.find(( buscar ) => buscar.cant == 10 )
-//         return botonDelCarrito(id) 
+// function botonDisabled () {
+//     const recorrerCantidad = tuCarrito.find(( buscar ) => buscar.cant == 10)
+//         console.log(recorrerCantidad)
+//         botonDelCarrito(recorrerCantidad.id) 
 //     }
-
-// for ( let producto in tuCarrito) {
-//     console.log(tuCarrito[producto])
-//     botonDisabled(tuCarrito[producto])
-// }
-
-
-// for ( let producto in tuCarrito) {
-//     console.log(tuCarrito[producto].id)
-//     if (tuCarrito[producto].cant >= 10) botonDisabled(tuCarrito[producto].id)
-// }
-
-
-// pendiente, agregar un cantidad = 10 = a botonDelCarrito
-
-
-// arregloDisabled()
+// botonDisabled()
 
 
