@@ -1,5 +1,3 @@
-
-
 // **************************************************************//
 // *********************     Functions     **********************//
 // **************************************************************//
@@ -14,49 +12,55 @@ const acumuladorCantidad = () => {
 }
 acumuladorCantidad()
 
+
 function validarStorageCarrito() {
     const validarStoragecart = JSON.parse(localStorage.getItem('carrito'))
-        return validarStoragecart == null ? [] : JSON.parse(localStorage.getItem('carrito'))
+    return validarStoragecart == null ? [] : JSON.parse(localStorage.getItem('carrito'))
 }
 
 let productos = []
 
 fetch('data.json')
-.then( (res) => res.json())
-.then( (data) => {
-    productos = data.productos
-})
+    .then((res) => res.json())
+    .then((data) => {
+        productos = data.productos
+    })
 
 
-console.log(tuCarrito)
+const verProducto = (id) => {
+    productoQueQuiereVer = productos.find(element => element.id === id);
+    localStorage.setItem("productoAVer", JSON.stringify(productoQueQuiereVer));
+}
 
 
-const botonDelCarrito = (id) => {
-    console.log(id)
+
+for (let buscar of tuCarrito) {
+    (buscar.cant >= 10) && botonDisabled(buscar.id)
+}
+
+
+function botonDisabled(id) {
+    fetch('data.json')
+        .then((res) => res.json())
+        .then((data) => {
+            productos = data.productos
+            const recorrerCantidad = tuCarrito.filter((buscar) => {
+                if (buscar.cant == productos[id].stock) {
+                    botonDelCarrito(buscar.id)
+                }
+            })
+        })
+}
+
+
+
+function botonDelCarrito(id) {
     const bottonOutStock = document.getElementById(`stock${id}`).innerHTML = "Out Stock"
     const buttonCompraDisabled = document.getElementById(`btnCart${id}`).innerHTML = `<button
     onclick= agregar()
     class="btn btn-outline-dark mt-auto" disabled>
     Add to cart
     </button> `
-}
-
-botonDelCarrito(10)
-
-const validarStock = (id, cantidadPedida) => {
-    console.log(id)
-    localStorage.setItem('carrito', JSON.stringify(tuCarrito))
-    acumuladorCantidad()
-    let catidadDeStock = productos[id].stock - cantidadPedida
-    if (catidadDeStock > 0) {
-        localStorage.setItem(`storageEnStock${id}`, JSON.stringify(catidadDeStock))
-        console.log('stock:' + catidadDeStock)
-        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
-    }
-    else if (catidadDeStock <= 0) {
-        botonDelCarrito(id)
-        console.log('no tenemos suficiente stock')
-    }
 }
 
 
@@ -84,18 +88,28 @@ const agregar = (id) => {
         position: "right", // `left`, `center` or `right`
         stopOnFocus: true, // Prevents dismissing of toast on hover
         style: {
-        background: "linear-gradient(to right, #808080, #000000)",
+            background: "linear-gradient(to right, #808080, #000000)",
         },
-        onClick: function(){} // Callback after click
+        onClick: function () { } // Callback after click
     }).showToast();
-    console.log(tuCarrito)
 }
 
-// function botonDisabled () {
-//     const recorrerCantidad = tuCarrito.find(( buscar ) => buscar.cant == 10)
-//         console.log(recorrerCantidad)
-//         botonDelCarrito(recorrerCantidad.id) 
-//     }
-// botonDisabled()
 
+
+
+const validarStock = (id, cantidadPedida) => {
+    localStorage.setItem('carrito', JSON.stringify(tuCarrito))
+    acumuladorCantidad()
+    let catidadDeStock = productos[id].stock - cantidadPedida
+    if (catidadDeStock > 0) {
+        localStorage.setItem(`storageEnStock${id}`, JSON.stringify(catidadDeStock))
+        console.log('stock:' + catidadDeStock)
+        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
+    }
+    else if (catidadDeStock <= 0) {
+        botonDelCarrito(id)
+        localStorage.removeItem(`storageEnStock${id}`)
+        console.log('no tenemos suficiente stock')
+    }
+}
 

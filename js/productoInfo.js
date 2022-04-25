@@ -1,21 +1,6 @@
 
 const verCard = JSON.parse(localStorage.getItem("productoAVer"))
 
-
-function buscarProducto() {
-
-    const productosBuscados = document.getElementById("buscador").value.toUpperCase().trim();
-    console.log(productosBuscados)
-    const productosEncontrados = productos.filter((productos) => {
-
-        return productos.nombre.toUpperCase().match(productosBuscados);
-    })
-    console.log(productosEncontrados)
-    mostrarCards(productosEncontrados)
-}
-
-
-
 function mostrarElProducto(card) {
     const containerCard = document.getElementById("showProduct")
     let verProducto = document.createElement('div')

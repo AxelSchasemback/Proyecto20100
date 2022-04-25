@@ -1,26 +1,22 @@
-const verProducto = (id) => {
-    productoQueQuiereVer = productos.find(element => element.id === id);
-    localStorage.setItem("productoAVer", JSON.stringify(productoQueQuiereVer));
-}
-
-
-function buscarProducto() {
-    
-    const productosBuscados = document.getElementById("buscador").value.toUpperCase().trim();
-    console.log(productosBuscados)
-    const productosEncontrados = productos.filter((producto) => {
-        return producto.nombre.toUpperCase().match(productosBuscados);
-    })
-    console.log(productosEncontrados)
-    mostrarCards(productosEncontrados)
-}
-
 fetch('data.json')
 .then( (res) => res.json())
 .then( (data) => {
     mostrarCards(data.productos)
 })
 
+
+function buscarProducto() {
+    fetch('data.json')
+.then( (res) => res.json())
+.then( (data) => {
+    productos = data.productos
+    const nombreProductoBuscado = document.getElementById("buscador").value.toUpperCase().trim();
+    const productosEncontrados = productos.filter((producto) => {
+        return producto.nombre.toUpperCase().match(nombreProductoBuscado);
+    });
+    mostrarCards(productosEncontrados);
+})
+}
 
 
 
@@ -72,36 +68,6 @@ function mostrarCards(productos) {
 }
 
 
-
-mostrarCards(productos)
-
-
-
-
-const eliminar = (id) => {
-    let index = tuCarrito[id]
-    if (index != -1) {
-        console.log(`sacaste ${tuCarrito[nombre].nombre} de $${tuCarrito[nombre].precio}`)
-        tuCarrito.splice(index, 1)
-    }
-    let resultado = tuCarrito[nombre].precio
-    total = total - resultado
-    console.log(`tu nuevo total es de $${total}`)
-}
-
-
-// mostrarCards(data)
-
-
-
-
-
-
-// *************************************************************//
-// *********************    Variables    ***********************//
-// *************************************************************//
-
-let total = 0;
 
 
 
@@ -303,7 +269,7 @@ let total = 0;
 //     const listaDeCompra = (prompt(`este es tu Carrito:\n${nombrePrecio.join('\n')}\n desea editar su carrito? s/n`))
 //     if (listaDeCompra == 's') {
 //         const editCarrito = parseInt(prompt(`Selecciona el Numero que desea Quitar del Carrito:\n${nombrePrecio.join('\n')}`))
-//         eliminar(editCarrito)
+//         eliminar(-)
 //     }
 //     else if ((listaDeCompra == 'n') || listaDeCompra == 'no') {
 //         editor = 'n'

@@ -14,8 +14,8 @@
         <!-- Core theme CSS (includes Bootstrap)-->
         <link href="css/styles.css" rel="stylesheet" />
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js" defer></script>
-        <script src="js/logicProduct.js" defer></script>
         <script src="js/main.js" defer></script>
+        <script src="js/logicProduct.js" defer></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     </head>
     <body>
@@ -25,8 +25,12 @@
                 <a class="navbar-brand" href="#!">Start Bootstrap</a>
                 <!-- Buscador de Prodcuto -->
                 <div>
-                <input type="text" id="buscador">
-                <button onclick=buscarProducto()> Buscar </button>
+                <form method="get" id="searchForm" class="d-flex">
+                    <input id="buscador" type="search" placeholder="Buscar Producto" aria-label="Search">
+                    <button onclick=buscarProducto()>
+                        buscar
+                    </button>
+                </form>
                 </div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
