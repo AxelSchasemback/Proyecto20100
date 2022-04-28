@@ -2,7 +2,8 @@
 // *********************     Functions     **********************//
 // **************************************************************//
 
-const tuCarrito = validarStorageCarrito()
+let tuCarrito = validarStorageCarrito()
+let productosSinStock = sinStock()
 
 
 const acumuladorCantidad = () => {
@@ -11,6 +12,11 @@ const acumuladorCantidad = () => {
     const cantidadDelCarro = document.getElementById("cantidadCarrito").innerHTML = cantidadTotal
 }
 acumuladorCantidad()
+
+function sinStock() {
+    const validarStorageStock = JSON.parse(localStorage.getItem('sinStock'))
+    return validarStorageStock == null ? [] : JSON.parse(localStorage.getItem('sinStock'))
+}
 
 
 function validarStorageCarrito() {
@@ -24,6 +30,9 @@ fetch('data.json')
     .then((res) => res.json())
     .then((data) => {
         productos = data.productos
+        const arrayVacio = productosSinStock.find( vacio => {
+            botonDelCarrito(vacio.id) || []
+        })
     })
 
 
@@ -33,9 +42,8 @@ const verProducto = (id) => {
 }
 
 
-
 for (let buscar of tuCarrito) {
-    (buscar.cant >= 10) && botonDisabled(buscar.id)
+    (buscar.cant) && botonDisabled(buscar.id)
 }
 
 
@@ -45,9 +53,7 @@ function botonDisabled(id) {
         .then((data) => {
             productos = data.productos
             const recorrerCantidad = tuCarrito.filter((buscar) => {
-                if (buscar.cant == productos[id].stock) {
-                    botonDelCarrito(buscar.id)
-                }
+                (buscar.cant == productos[id].stock) && botonDelCarrito(buscar.id)
             })
         })
 }
@@ -65,7 +71,6 @@ function botonDelCarrito(id) {
 
 
 const agregar = (id) => {
-    console.log(id)
     let productoSeleccionado = tuCarrito.find(producto => producto.id == id);
     if (!productoSeleccionado) {
         let nProd = productos.find(producto => producto.id == id)
@@ -73,11 +78,10 @@ const agregar = (id) => {
         let nPrecio = nProd.precio;
         let nImg = nProd.img;
         tuCarrito.push({ id: id, cant: 1, nombre: nNombre, precio: nPrecio, img: nImg })
-        validarStock(id, 1)
     } else {
         productoSeleccionado.cant = productoSeleccionado.cant + 1;
-        validarStock(id, productoSeleccionado.cant)
     }
+    validarStock(id)
     Toastify({
         text: `Agregaste ${productos[id].nombre}`,
         duration: 2000,
@@ -95,21 +99,17 @@ const agregar = (id) => {
 }
 
 
-
-
-const validarStock = (id, cantidadPedida) => {
+const validarStock = (id) => {
     localStorage.setItem('carrito', JSON.stringify(tuCarrito))
     acumuladorCantidad()
-    let catidadDeStock = productos[id].stock - cantidadPedida
-    if (catidadDeStock > 0) {
-        localStorage.setItem(`storageEnStock${id}`, JSON.stringify(catidadDeStock))
-        console.log('stock:' + catidadDeStock)
-        console.log(`se agrego al Carrito: ${productos[id].nombre} $${productos[id].precio}`)
-    }
-    else if (catidadDeStock <= 0) {
+    let stockProducto = localStorage.getItem(`storageEnStock${id}`) || productos[id].stock
+        stockProducto = stockProducto - 1
+        localStorage.setItem(`storageEnStock${id}`, stockProducto)
+    if (stockProducto <= 0) {
         botonDelCarrito(id)
-        localStorage.removeItem(`storageEnStock${id}`)
-        console.log('no tenemos suficiente stock')
+        const buscarStockVacio = tuCarrito.find(( buscar ) => buscar.id == id)
+        productosSinStock.push(buscarStockVacio)
+        localStorage.setItem(`sinStock`, JSON.stringify(productosSinStock))
     }
 }
 

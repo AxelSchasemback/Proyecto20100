@@ -18,7 +18,6 @@ const remove = (id) => {
     acumularTotal()
     actualizarCant()
     cardCarrito(storageCart)
-    console.log(selecProducto)
     restablecerStorage(id)
     localStorage.setItem('carrito', JSON.stringify(storageCart))
     if (selecProducto.cant == 0) {
@@ -31,12 +30,8 @@ const remove = (id) => {
 function restablecerStorage(id) {
     let restaurarStock = JSON.parse(localStorage.getItem(`storageEnStock${id}`))
     const sumarStock = (restaurarStock + 1)
-    const guardarStock = localStorage.setItem(`storageEnStock${id}`, JSON.stringify(sumarStock))
+    const guardarStock = localStorage.setItem(`storageEnStock${id}`, (sumarStock))
 }
-
-
-
-
 
 
 const acumularTotal = () => {
@@ -45,6 +40,7 @@ const acumularTotal = () => {
     const cantidadTotalDelCarro = document.getElementById("precioTotal").innerHTML = `Total = ${total}`
 }
 acumularTotal()
+
 
 function finalizarCompra() {
     swal({
