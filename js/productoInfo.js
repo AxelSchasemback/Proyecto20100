@@ -1,3 +1,20 @@
+function buscarProducto() {
+    fetch('data.json')
+.then( (res) => res.json())
+.then( (data) => {
+    productos = data.productos
+        const nombreProductoBuscado = document.getElementById('productoBuscado').value.toUpperCase().trim();
+        const productosEncontrados = productos.filter((producto) => {
+            return producto.titulo.toUpperCase().match(nombreProductoBuscado);
+        });
+        if (nombreProductoBuscado != '') {
+            document.getElementById("cards").innerHTML = `<div class="col-lg-12"><h2>Resultados que coinciden con "${nombreProductoBuscado}"</h2></div>`;
+            generarCards(productosEncontrados);
+        }
+    })
+}
+
+
 
 const verCard = JSON.parse(localStorage.getItem("productoAVer"))
 
@@ -72,8 +89,10 @@ function mostrarRelacion(card) {
                             </div>
                             <!-- Product actions-->
                             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">ver producto</a></div>
-                            </div>
+                            <div class="text-center">
+                            <a OnClick=verProducto(${card.id}) href="verProducto.html" target="_BLANK" 
+                            class="btn btn-outline-dark mt-auto" href="#">ver producto</a></div>
+                                </div>
                         </div>
                     </div>`
     relatedCard.appendChild(verRelacion)

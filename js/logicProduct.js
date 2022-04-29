@@ -26,15 +26,6 @@ function validarStorageCarrito() {
 
 let productos = []
 
-fetch('data.json')
-    .then((res) => res.json())
-    .then((data) => {
-        productos = data.productos
-        const arrayVacio = productosSinStock.find( vacio => {
-            botonDelCarrito(vacio.id) || []
-        })
-    })
-
 
 const verProducto = (id) => {
     productoQueQuiereVer = productos.find(element => element.id === id);
@@ -52,15 +43,28 @@ function botonDisabled(id) {
         .then((res) => res.json())
         .then((data) => {
             productos = data.productos
+            const productoStock = JSON.parse(localStorage.getItem(`storageEnStock${id}`))
             const recorrerCantidad = tuCarrito.filter((buscar) => {
-                (buscar.cant == productos[id].stock) && botonDelCarrito(buscar.id)
+                if ( productoStock == 0 ) return botonDelCarritoDisabled(productoStock)
+                if (buscar.cant != productos[id].stock) {
+                    const renuevoBoton = productosSinStock.filter((sacoDelArray) => sacoDelArray.id != buscar.id)
+                    localStorage.setItem("sinStock", JSON.stringify(renuevoBoton))
+                    return botonDelCarrito(buscar.id)
+                }
             })
         })
 }
 
-
-
 function botonDelCarrito(id) {
+    const bottonOutStock = document.getElementById(`stock${id}`).innerHTML = "En Stock"
+    const buttonCompraDisabled = document.getElementById(`btnCart${id}`).innerHTML = `<button
+    onclick= agregar(${id})
+    class="btn btn-outline-dark mt-auto">
+    Add to cart
+    </button> `
+}
+
+function botonDelCarritoDisabled(id) {
     const bottonOutStock = document.getElementById(`stock${id}`).innerHTML = "Out Stock"
     const buttonCompraDisabled = document.getElementById(`btnCart${id}`).innerHTML = `<button
     onclick= agregar()
@@ -68,6 +72,16 @@ function botonDelCarrito(id) {
     Add to cart
     </button> `
 }
+
+fetch('data.json')
+    .then((res) => res.json())
+    .then((data) => {
+        productos = data.productos
+        const arrayVacio = productosSinStock.find( vacio => {
+            botonDelCarritoDisabled(vacio.id) || []
+        })
+    })
+
 
 
 const agregar = (id) => {
@@ -106,7 +120,7 @@ const validarStock = (id) => {
         stockProducto = stockProducto - 1
         localStorage.setItem(`storageEnStock${id}`, stockProducto)
     if (stockProducto <= 0) {
-        botonDelCarrito(id)
+        botonDelCarritoDisabled(id)
         const buscarStockVacio = tuCarrito.find(( buscar ) => buscar.id == id)
         productosSinStock.push(buscarStockVacio)
         localStorage.setItem(`sinStock`, JSON.stringify(productosSinStock))
