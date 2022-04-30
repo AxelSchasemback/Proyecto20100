@@ -5,7 +5,6 @@
 let tuCarrito = validarStorageCarrito()
 let productosSinStock = sinStock()
 
-
 const acumuladorCantidad = () => {
     const cantidadTotal = tuCarrito.reduce((acumuladorCantidad, tuCarrito) => acumuladorCantidad + tuCarrito.cant, 0)
     localStorage.setItem('acumularCantidadTotal', JSON.stringify(cantidadTotal))
@@ -33,28 +32,6 @@ const verProducto = (id) => {
 }
 
 
-for (let buscar of tuCarrito) {
-    (buscar.cant) && botonDisabled(buscar.id)
-}
-
-
-function botonDisabled(id) {
-    fetch('data.json')
-        .then((res) => res.json())
-        .then((data) => {
-            productos = data.productos
-            const productoStock = JSON.parse(localStorage.getItem(`storageEnStock${id}`))
-            const recorrerCantidad = tuCarrito.filter((buscar) => {
-                if ( productoStock == 0 ) return botonDelCarritoDisabled(productoStock)
-                if (buscar.cant != productos[id].stock) {
-                    const renuevoBoton = productosSinStock.filter((sacoDelArray) => sacoDelArray.id != buscar.id)
-                    localStorage.setItem("sinStock", JSON.stringify(renuevoBoton))
-                    return botonDelCarrito(buscar.id)
-                }
-            })
-        })
-}
-
 function botonDelCarrito(id) {
     const bottonOutStock = document.getElementById(`stock${id}`).innerHTML = "En Stock"
     const buttonCompraDisabled = document.getElementById(`btnCart${id}`).innerHTML = `<button
@@ -73,14 +50,6 @@ function botonDelCarritoDisabled(id) {
     </button> `
 }
 
-fetch('data.json')
-    .then((res) => res.json())
-    .then((data) => {
-        productos = data.productos
-        const arrayVacio = productosSinStock.find( vacio => {
-            botonDelCarritoDisabled(vacio.id) || []
-        })
-    })
 
 
 
@@ -117,11 +86,11 @@ const validarStock = (id) => {
     localStorage.setItem('carrito', JSON.stringify(tuCarrito))
     acumuladorCantidad()
     let stockProducto = localStorage.getItem(`storageEnStock${id}`) || productos[id].stock
-        stockProducto = stockProducto - 1
-        localStorage.setItem(`storageEnStock${id}`, stockProducto)
+    stockProducto = stockProducto - 1
+    localStorage.setItem(`storageEnStock${id}`, stockProducto)
     if (stockProducto <= 0) {
         botonDelCarritoDisabled(id)
-        const buscarStockVacio = tuCarrito.find(( buscar ) => buscar.id == id)
+        const buscarStockVacio = tuCarrito.find((buscar) => buscar.id == id)
         productosSinStock.push(buscarStockVacio)
         localStorage.setItem(`sinStock`, JSON.stringify(productosSinStock))
     }

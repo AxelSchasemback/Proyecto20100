@@ -1,25 +1,8 @@
-function buscarProducto() {
-    fetch('data.json')
-.then( (res) => res.json())
-.then( (data) => {
-    productos = data.productos
-        const nombreProductoBuscado = document.getElementById('productoBuscado').value.toUpperCase().trim();
-        const productosEncontrados = productos.filter((producto) => {
-            return producto.titulo.toUpperCase().match(nombreProductoBuscado);
-        });
-        if (nombreProductoBuscado != '') {
-            document.getElementById("cards").innerHTML = `<div class="col-lg-12"><h2>Resultados que coinciden con "${nombreProductoBuscado}"</h2></div>`;
-            generarCards(productosEncontrados);
-        }
-    })
-}
 
-
-
-const verCard = JSON.parse(localStorage.getItem("productoAVer"))
 
 function mostrarElProducto(card) {
     const containerCard = document.getElementById("showProduct")
+    containerCard.innerHTML =""
     let verProducto = document.createElement('div')
     verProducto.className = "card"
     verProducto.innerHTML = `
@@ -52,21 +35,22 @@ src="img/${card.img}" alt="..." style="height: 25em; width: 25em;"></div>
 </div>`
     containerCard.appendChild(verProducto)
 }
-mostrarElProducto(verCard)
-
 
 
 fetch('data.json')
     .then((res) => res.json())
     .then((data) => {
         productos = data.productos
+        const verCard = JSON.parse(localStorage.getItem("productoAVer"))
+        mostrarElProducto(verCard)
+        const buscoArrayVacio = productosSinStock.find(( vacio ) => vacio.id == verCard.id)
+        if (buscoArrayVacio) {botonDelCarritoDisabled(buscoArrayVacio.id)}
+
 const buscarRelacion = productos.filter(( buscar )=> buscar.categoria == verCard.categoria)
 const objetoRelacion = buscarRelacion.find(( objeto )=>{
     const textoRelacion = document.getElementById("relacionNombre").innerHTML = `porque estas mirando ${objeto.categoria}`
     mostrarRelacion(objeto)
 })
-
-
 })
 
 function mostrarRelacion(card) {
